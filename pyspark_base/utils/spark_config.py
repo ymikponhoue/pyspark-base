@@ -5,6 +5,7 @@ Spark Utility module
 
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
+from pyspark_base.utils.appconfig import Appconfig
 
 DEFAULT_SHUFFLE_PARTITIONS: str = "24"
 DEFAULT_MAX_RESULT_SIZE: str = "0"
@@ -31,6 +32,6 @@ def get_spark_session(spark_conf: SparkConf = spark_conf_default()) -> SparkSess
     """
     return (
         SparkSession.builder.config(conf=spark_conf)
-        .appName("pyspark_template_app")
+        .appName(Appconfig("pyspark_base/config.ini").get_application_name())
         .getOrCreate()
     )

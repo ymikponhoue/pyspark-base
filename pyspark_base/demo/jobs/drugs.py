@@ -76,6 +76,7 @@ def drugs_gen(drugs: str, pubmed: str, clinicals_trials: str, output: str) -> No
         )
         .drop("journals_pubmed", "journals_clinical_trials")
     )
-
     journals.show()
+#   journals.write.mode("overwrite").format("delta").save(journalPath)
+
 
