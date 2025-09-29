@@ -15,3 +15,6 @@ class Appconfig:
 
     def get_master(self):
         return self._get_app_config_value("SPARK", "Master")
+
+    def get_path_src(self, tag_path):
+        return self._get_app_config_value("SOURCES", tag_path)

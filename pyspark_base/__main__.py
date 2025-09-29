@@ -14,14 +14,10 @@ def print_hi(name):
 
 
 def main() -> None:
-    """The main routine."""
-
-    print(Appconfig("pyspark_base/config.ini").conf_read.sections())
-    print(Appconfig("pyspark_base/config.ini").get_application_name())
-
+    config = Appconfig("pyspark_base/config.ini")
     print("Unuse DE Main Routine.")
     print_hi('PyCharm')
-    drugs_gen("data/drugs.csv", "data/pubmed.csv", "data/clinical_trials.csv", "str")
+    drugs_gen(config.get_path_src("drugs"), config.get_path_src("pubmed"), config.get_path_src("clinical_trials"), "str")
 
 
 # Press the green button in the gutter to run the script.
