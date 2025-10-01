@@ -14,11 +14,16 @@ def print_hi(name):
 
 
 def main() -> None:
-    config = Appconfig("pyspark_base/config.ini")
+    config = Appconfig("pyspark_base/config_local.ini")
     print("Unuse DE Main Routine.")
     print_hi('PyCharm')
-    drugs_gen(config.get_path_src("drugs"), config.get_path_src("pubmed"), config.get_path_src("clinical_trials"), "str")
+    drugs_gen(config.get_path_src("drugs"), config.get_path_src("pubmed"), config.get_path_src("clinical_trials"), config.get_path_src("journal_gold"))
+import sys
+print("Kernel:", sys.executable)
+print("Python version:", sys.version)
 
+import pyspark
+print("PySpark version:", pyspark.__version__)
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':

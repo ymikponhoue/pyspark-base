@@ -6,6 +6,7 @@ from pyspark.sql import DataFrame, SparkSession
 from pyspark_base.utils.readers import read_csv
 from pyspark_base.utils.spark_config import get_spark_session
 from pyspark_base.demo.transformers.common import prefix_cols, prepared_title_array
+from delta import *
 
 
 def drugs_gen(drugs: str, pubmed: str, clinicals_trials: str, output: str) -> None:
@@ -77,6 +78,5 @@ def drugs_gen(drugs: str, pubmed: str, clinicals_trials: str, output: str) -> No
         .drop("journals_pubmed", "journals_clinical_trials")
     )
     journals.show()
-#   journals.write.mode("overwrite").format("delta").save(journalPath)
-
-
+    (journals.select("atccode", "drug").write.mode("overwrite").format("delta")
+     .save(output))
