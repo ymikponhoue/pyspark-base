@@ -6,24 +6,33 @@
 # from typing import List
 from pyspark_base.demo.jobs.drugs import drugs_gen
 from pyspark_base.utils.appconfig import Appconfig
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from typing import List
+from argparse import ArgumentParser
 
 
 def main() -> None:
-    config = Appconfig("pyspark_base/config_local.ini")
-    print("Unuse DE Main Routine.")
-    print_hi('PyCharm')
-    drugs_gen(config.get_path_src("drugs"), config.get_path_src("pubmed"), config.get_path_src("clinical_trials"), config.get_path_src("journal_gold"))
-import sys
-print("Kernel:", sys.executable)
-print("Python version:", sys.version)
 
-import pyspark
-print("PySpark version:", pyspark.__version__)
+    parser = ArgumentParser(
+        description="Script that adds 2 numbers from CMD"
+    )
+    parser.add_argument("--app", required=True, type=str)
+    parser.add_argument("--env", choices=["local", "dev"], required=True, type=str)
+    args = parser.parse_args()
+    lang = [args.app, args.env]
+    print(lang)
+
+    match args.app:
+        case "no_unity":
+            print("You can become a web developer.")
+            config = Appconfig(f"pyspark_base/config_{args.env}.ini")
+            drugs_gen(config.get_path_src("drugs"), config.get_path_src("pubmed"),
+                      config.get_path_src("clinical_trials"), config.get_path_src("journal_gold"))
+
+        case "unity":
+            print("You can become a mobile app developer")
+        case _:
+            print("The language doesn't matter, what matters is solving problems.")
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
